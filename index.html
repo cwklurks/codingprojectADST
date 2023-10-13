@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Scheduler</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Homework Scheduler</h1>
+    <div class="input-form">
+        <label for="due-date">Due Date:</label>
+        <input type="date" id="due-date">
+        <label for="sleep-hours">Hours of Sleep Last Night:</label>
+        <input type="number" id="sleep-hours" min="0" max="24">
+        <label for="evening-plans">Evening Plans:</label>
+        <textarea id="evening-plans"></textarea>
+        <button id="schedule-button">Generate Study Schedule</button>
+    </div>
+    <div class="output-schedule">
+        <h2>Recommended Study Schedule:</h2>
+        <p id="schedule-result"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> <!-- Add this line to include Axios -->
+    <script src="script.js"></script>
+</body>
+</html>
