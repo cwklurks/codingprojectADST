@@ -1,35 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 20px;
+  font-family: Arial, sans-serif;
 }
 
-h1 {
-    font-size: 24px;
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
 }
 
-.input-form {
-    margin: 20px;
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
-label {
-    display: block;
-    margin-bottom: 5px;
+nav li {
+  display: inline-block;
 }
 
-textarea {
-    width: 100%;
-    height: 100px;
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 14px;
 }
 
-button {
-    padding: 10px 20px;
-    background-color: #0074D9;
-    color: white;
-    border: none;
-    cursor: pointer;
+nav a:hover {
+  background-color: #ddd;
+  color: #333;
 }
 
-.output-schedule {
-    margin: 20px;
+main {
+  max-width: 800px;
+  margin: auto;
+}
+
+.timer, .notes, .study-bot {
+  margin-bottom: 50px;
+}
+
+.timer button, .notes button, .study-bot button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px;
+}
+
+.timer button:hover, .notes button:hover, .study-bot button:hover {
+  background-color: #ddd;
 }
