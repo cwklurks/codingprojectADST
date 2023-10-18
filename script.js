@@ -1,73 +1,63 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const scheduleButton = document.getElementById("schedule-button");
-    const scheduleResult = document.getElementById("schedule-result");
-    let requestCount = 0;
+// Timer
+const startTimerButton = document.getElementById('start-timer');
+const timer = document.getElementById('timer');
 
-    // Define rate limits based on the maximum RPM
-    const maxRequests = 3; // Maximum RPM for your specific model
-    const requestDelay = 60000 / maxRequests; // Delay between requests in milliseconds
+let time = null;
 
-    scheduleButton.addEventListener("click", function () {
-        if (requestCount >= maxRequests) {
-            console.error('Rate limit reached. Please try again later.');
-            return;
+startTimerButton.addEventListener('click', () => {
+    if (time === null) {
+        time = new Date().getTime() + (25 * 60 * 1000);
+    }
+
+    const interval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = time - now;
+
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / (1000));
+
+        timer.innerHTML = `${minutes}m ${seconds}s`;
+
+        if (distance <= 0) {
+            clearInterval(interval);
+            time = null;
+            timer.innerHTML = 'Time is up!';
         }
+    }, 1000);
+});
 
-        const dueDate = document.getElementById("due-date").value;
-        const sleepHours = parseInt(document.getElementById("sleep-hours").value);
-        const eveningPlans = document.getElementById("evening-plans").value;
+// Notes
+const noteForm = document.getElementById('note-form');
+const notesList = document.getElementById('notes-list');
 
-        const apiUrl = 'https://api.openai.com/v1/engines/davinci/completions';
-        const apiKey = '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';
-        const inputText = `Given a due date of ${dueDate}, ${sleepHours} hours of sleep, and the following evening plans: ${eveningPlans}, suggest a study schedule.`;
+noteForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-        const requestData = {
-            prompt: inputText,
-            max_tokens: 50,
-        };
+    const noteInput = document.getElementById('note');
+    const noteValue = noteInput.value;
 
-        // Compress the request data using TextEncoder
-        const textEncoder = new TextEncoder();
-        const compressedData = textEncoder.encode(JSON.stringify(requestData));
-
-        // Make a POST request to the API with compressed data
-        makeDelayedApiRequest(apiUrl, apiKey, compressedData, (response) => {
-            if (response) {
-                const generatedSchedule = JSON.parse(response).choices[0].text;
-                scheduleResult.innerText = generatedSchedule;
-            } else {
-                console.error('API Request Error');
-            }
-        });
-    });
-
-    function makeDelayedApiRequest(apiUrl, apiKey, compressedData, callback) {
-        setTimeout(() => {
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${apiKey}`,
-                    'Content-Type': 'application/json',
-                },
-                body: compressedData,
-            })
-            .then(response => {
-                requestCount++;
-                if (response.status === 200) {
-                    return response.json();
-                } else {
-                    console.error('API Request Error:', response.status);
-                    throw new Error('API Request Error');
-                }
-            })
-            .then(responseData => {
-                callback(responseData);
-            })
-            .catch(error => {
-                console.error('API Request Error:', error);
-                callback(null);
-            });
-        }, requestCount * requestDelay);
+    if (noteValue !== '') {
+        localStorage.setItem(`note-${new Date().getTime()}`, noteValue);
+        noteInput.value = '';
+        displayNotes();
     }
 });
 
+function displayNotes() {
+    notesList.innerHTML = '';
+
+    for (let i = localStorage.length -1; i >=0; i--) {
+        const key = localStorage.key(i);
+        const value = localStorage.getItem(key);
+
+        notesList.innerHTML += `<div>${value}</div>`;
+    }
+}
+
+displayNotes();
+
+// Study Bot
+const botForm = document.getElementById('bot-form');
+const botResponse = document.getElementById('bot-response');
+
+botForm.addEventListener('
