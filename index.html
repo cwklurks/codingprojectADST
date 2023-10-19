@@ -1,58 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Study Hub</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Central Hub</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Study Hub</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <h1>Student Central Hub</h1>
+    </header>
 
-  <main>
-    <section class="timer">
-      <h2>25 Minute Timer</h2>
-      <p>Click the button below to start the timer:</p>
-      <button id="start-timer">Start Timer</button>
-      <p id="timer"></p>
+    <section id="timer">
+        <h2>Pomodoro Timer</h2>
+        <div id="display">25:00</div>
+        <button id="startTimer">Start</button>
     </section>
 
-    <section class="notes">
-      <h2>Note-taking Sector</h2>
-      <form id="note-form">
-        <label for="note">Enter your note:</label><br>
-        <textarea id="note" name="note"></textarea><br>
-        <button type="submit">Save Note</button>
-      </form>
-
-      <div id="notes-list"></div>
+    <section id="notes">
+        <h2>Notes</h2>
+        <textarea id="noteArea"></textarea>
+        <button id="saveNote">Save Note</button>
     </section>
 
-    <section class="study-bot">
-      <h2>Study Bot</h2>
-      <p>Enter your question below:</p>
-
-      <form id="bot-form">
-        <input type="text" id="bot-input" name="bot-input"><br><br>
-        <button type="submit">Ask Question</button>
-      </form>
-
-      <div id="bot-response"></div>
+    <section id="studyBot">
+        <h2>Study Bot</h2>
+        <input type="text" id="query" placeholder="Ask the study bot...">
+        <button id="askBot">Ask</button>
+        <div id="botResponse"></div>
     </section>
 
-  </main>
-
-  <script src="script.js"></script>
-
+    <script src="script.js"></script>
 </body>
 </html>
-
