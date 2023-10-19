@@ -1,63 +1,42 @@
 // Timer
-const startTimerButton = document.getElementById('start-timer');
-const timer = document.getElementById('timer');
+const display = document.getElementById('display');
+const startTimerBtn = document.getElementById('startTimer');
+let timer;
 
-let time = null;
+startTimerBtn.addEventListener('click', function() {
+    let timeLeft = 25 * 60; // 25 minutes in seconds
 
-startTimerButton.addEventListener('click', () => {
-    if (time === null) {
-        time = new Date().getTime() + (25 * 60 * 1000);
-    }
+    clearInterval(timer);
+    timer = setInterval(function() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        display.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        timeLeft--;
 
-    const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = time - now;
-
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / (1000));
-
-        timer.innerHTML = `${minutes}m ${seconds}s`;
-
-        if (distance <= 0) {
-            clearInterval(interval);
-            time = null;
-            timer.innerHTML = 'Time is up!';
+        if (timeLeft < 0) {
+            clearInterval(timer);
+            alert('Time is up!');
         }
     }, 1000);
 });
 
-// Notes
-const noteForm = document.getElementById('note-form');
-const notesList = document.getElementById('notes-list');
+// Note-taking
+const noteArea = document.getElementById('noteArea');
+const saveNoteBtn = document.getElementById('saveNote');
 
-noteForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const noteInput = document.getElementById('note');
-    const noteValue = noteInput.value;
-
-    if (noteValue !== '') {
-        localStorage.setItem(`note-${new Date().getTime()}`, noteValue);
-        noteInput.value = '';
-        displayNotes();
-    }
+saveNoteBtn.addEventListener('click', function() {
+    localStorage.setItem('note', noteArea.value);
 });
 
-function displayNotes() {
-    notesList.innerHTML = '';
+// Load saved note
+noteArea.value = localStorage.getItem('note') || '';
 
-    for (let i = localStorage.length -1; i >=0; i--) {
-        const key = localStorage.key(i);
-        const value = localStorage.getItem(key);
+// Study Bot (dummy implementation)
+const queryInput = document.getElementById('query');
+const askBotBtn = document.getElementById('askBot');
+const botResponse = document.getElementById('botResponse');
 
-        notesList.innerHTML += `<div>${value}</div>`;
-    }
-}
-
-displayNotes();
-
-// Study Bot
-const botForm = document.getElementById('bot-form');
-const botResponse = document.getElementById('bot-response');
-
-botForm.addEventListener('
+askBotBtn.addEventListener('click', function() {
+    // For now, just echo back the question
+    botResponse.textContent = `You asked: ${queryInput.value}`;
+});
