@@ -49,7 +49,7 @@ askBotBtn.addEventListener('click', function() {
     fetch("https://api.openai.com/v1/engines/davinci/completions", {
         method: "POST",
         headers: {
-            "Authorization": "Bearer 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
+            "Authorization": "
 ", //
             "Content-Type": "application/json"
         },
