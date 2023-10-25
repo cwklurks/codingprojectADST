@@ -35,8 +35,40 @@ noteArea.value = localStorage.getItem('note') || '';
 const queryInput = document.getElementById('query');
 const askBotBtn = document.getElementById('askBot');
 const botResponse = document.getElementById('botResponse');
+// ... (rest of your code)
+
+// Study Bot with ChatGPT API Integration
+const queryInput = document.getElementById('query');
+const askBotBtn = document.getElementById('askBot');
+const botResponse = document.getElementById('botResponse');
 
 askBotBtn.addEventListener('click', function() {
-    // For now, just echo back the question
+    const query = queryInput.value;
+
+    // make an API call to get the response from ChatGPT
+    fetch("https://api.openai.com/v1/engines/davinci/completions", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer YOUR_API_KEY", //
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            prompt: query,
+            max_tokens: 150
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        botResponse.textContent = data.choices[0].text.trim();
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        botResponse.textContent = "Sorry, there was an error.";
+    });
+});
+
+
+askBotBtn.addEventListener('click', function() {
+    // for now, just echo back the question
     botResponse.textContent = `You asked: ${queryInput.value}`;
 });
