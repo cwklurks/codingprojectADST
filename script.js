@@ -2,24 +2,25 @@
 const display = document.getElementById('display');
 const startTimerBtn = document.getElementById('startTimer');
 const stopTimerBtn = document.getElementById('stopTimer');
-const pauseTimerBtn = document.getElementById('pauseTimer'); // Added pause button reference
+const pauseTimerBtn = document.getElementById('pauseTimer');
 let timer;
-let isPaused = false; // Flag to track paused state
-let timeLeft = 25 * 60; // Move this outside to make it accessible for pause functionality
+let isPaused = false;
+let isWorkTime = true; // Flag to track if it's work time or break time
+let timeLeft = 25 * 60;
 
 startTimerBtn.addEventListener('click', function() {
-    timeLeft = 25 * 60; // Reset time left on start
+    timeLeft = isWorkTime ? 25 * 60 : 5 * 60; // Set the initial timer based on work/break status
     isPaused = false;
-    clearInterval(timer); // Clear any existing timer
-    startTimer(); // Start the timer
+    clearInterval(timer);
+    startTimer();
 });
 
 pauseTimerBtn.addEventListener('click', function() {
     if (isPaused) {
-        startTimer(); // If paused, resume the timer
+        startTimer();
         isPaused = false;
     } else {
-        clearInterval(timer); // If running, pause the timer
+        clearInterval(timer);
         isPaused = true;
     }
 });
@@ -27,7 +28,8 @@ pauseTimerBtn.addEventListener('click', function() {
 stopTimerBtn.addEventListener('click', function() {
     clearInterval(timer);
     display.textContent = "25:00";
-    timeLeft = 25 * 60; // Reset time left
+    timeLeft = 25 * 60;
+    isWorkTime = true; // Reset to work time
 });
 
 function startTimer() {
@@ -39,10 +41,12 @@ function startTimer() {
 
         if (timeLeft < 0) {
             clearInterval(timer);
-            alert('Time is up!');
-        }
-    }, 1000);
-}
+            if (isWorkTime) {
+                // If it was work time, switch to break time
+                isWorkTime = false;
+                timeLeft = 5 * 60;
+                start
+
 
 // Note-taking
 const noteArea = document.getElementById('noteArea');
@@ -61,5 +65,5 @@ const askBotBtn = document.getElementById('askBot');
 const botResponse = document.getElementById('botResponse');
 
 askBotBtn.addEventListener('click', function() {
-    botResponse.textContent = `You asked: ${queryInput.value}`;
-});
+    botResponse.textContent = `You asked: ${queryInput.value}`;    
+    
