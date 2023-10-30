@@ -1,6 +1,7 @@
 // Timer
 const display = document.getElementById('display');
 const startTimerBtn = document.getElementById('startTimer');
+const stopTimerBtn = document.getElementById('stopTimer'); // Added stop button reference
 let timer;
 
 startTimerBtn.addEventListener('click', function() {
@@ -20,6 +21,12 @@ startTimerBtn.addEventListener('click', function() {
     }, 1000);
 });
 
+// Added stop timer functionality
+stopTimerBtn.addEventListener('click', function() {
+    clearInterval(timer);
+    display.textContent = "25:00"; // Reset the display to 25 minutes
+});
+
 // Note-taking
 const noteArea = document.getElementById('noteArea');
 const saveNoteBtn = document.getElementById('saveNote');
@@ -35,7 +42,6 @@ noteArea.value = localStorage.getItem('note') || '';
 const queryInput = document.getElementById('query');
 const askBotBtn = document.getElementById('askBot');
 const botResponse = document.getElementById('botResponse');
-// 
 
 askBotBtn.addEventListener('click', function() {
     // for now, just echo back the question
