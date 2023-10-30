@@ -45,8 +45,16 @@ function startTimer() {
                 // If it was work time, switch to break time
                 isWorkTime = false;
                 timeLeft = 5 * 60;
-                start
-
+                startTimer(); // This was missing
+            } else {
+                // If it was break time, reset to work time for the next cycle
+                isWorkTime = true;
+                display.textContent = "25:00";
+                timeLeft = 25 * 60;
+            }
+        }
+    }, 1000);
+}
 
 // Note-taking
 const noteArea = document.getElementById('noteArea');
@@ -65,5 +73,5 @@ const askBotBtn = document.getElementById('askBot');
 const botResponse = document.getElementById('botResponse');
 
 askBotBtn.addEventListener('click', function() {
-    botResponse.textContent = `You asked: ${queryInput.value}`;    
-    
+    botResponse.textContent = `You asked: ${queryInput.value}`;
+});
