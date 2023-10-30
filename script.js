@@ -1,13 +1,36 @@
 // Timer
 const display = document.getElementById('display');
 const startTimerBtn = document.getElementById('startTimer');
-const stopTimerBtn = document.getElementById('stopTimer'); // Added stop button reference
+const stopTimerBtn = document.getElementById('stopTimer');
+const pauseTimerBtn = document.getElementById('pauseTimer'); // Added pause button reference
 let timer;
+let isPaused = false; // Flag to track paused state
+let timeLeft = 25 * 60; // Move this outside to make it accessible for pause functionality
 
 startTimerBtn.addEventListener('click', function() {
-    let timeLeft = 25 * 60; // 25 minutes in seconds
+    timeLeft = 25 * 60; // Reset time left on start
+    isPaused = false;
+    clearInterval(timer); // Clear any existing timer
+    startTimer(); // Start the timer
+});
 
+pauseTimerBtn.addEventListener('click', function() {
+    if (isPaused) {
+        startTimer(); // If paused, resume the timer
+        isPaused = false;
+    } else {
+        clearInterval(timer); // If running, pause the timer
+        isPaused = true;
+    }
+});
+
+stopTimerBtn.addEventListener('click', function() {
     clearInterval(timer);
+    display.textContent = "25:00";
+    timeLeft = 25 * 60; // Reset time left
+});
+
+function startTimer() {
     timer = setInterval(function() {
         let minutes = Math.floor(timeLeft / 60);
         let seconds = timeLeft % 60;
@@ -19,13 +42,7 @@ startTimerBtn.addEventListener('click', function() {
             alert('Time is up!');
         }
     }, 1000);
-});
-
-// Added stop timer functionality
-stopTimerBtn.addEventListener('click', function() {
-    clearInterval(timer);
-    display.textContent = "25:00"; // Reset the display to 25 minutes
-});
+}
 
 // Note-taking
 const noteArea = document.getElementById('noteArea');
@@ -44,6 +61,5 @@ const askBotBtn = document.getElementById('askBot');
 const botResponse = document.getElementById('botResponse');
 
 askBotBtn.addEventListener('click', function() {
-    // for now, just echo back the question
     botResponse.textContent = `You asked: ${queryInput.value}`;
 });
