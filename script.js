@@ -58,7 +58,21 @@ function updateDisplay(time) {
 }
 
 // note-taking
-// ... (rest of the code remains the same)
+const noteArea = document.getElementById('noteArea');
+const saveNoteBtn = document.getElementById('saveNote');
 
-// sudy Bot
-// ... (rest of the code remains the same)
+saveNoteBtn.addEventListener('click', function() {
+    localStorage.setItem('note', noteArea.value);
+});
+
+// load saved note
+noteArea.value = localStorage.getItem('note') || '';
+
+// 
+const queryInput = document.getElementById('query');
+const askBotBtn = document.getElementById('askBot');
+const botResponse = document.getElementById('botResponse');
+
+askBotBtn.addEventListener('click', function() {
+    botResponse.textContent = `You asked: ${queryInput.value}`;
+});
