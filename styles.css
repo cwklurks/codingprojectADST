@@ -67,10 +67,15 @@ textarea:focus, input[type="text"]:focus {
     color: #e74c3c;
 }
 
-#botResponse {
+#flashcards {
+    text-align: center;
+}
+
+#flashcardDisplay {
     margin-top: 1rem;
     padding: 1rem;
     border: 1px solid #bdc3c7;
     border-radius: 5px;
     background-color: #ecf0f1;
+    font-size: 1.2rem;
 }
