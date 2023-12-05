@@ -25,13 +25,16 @@
         <button id="saveNote">Save Note</button>
     </section>
 
-    <section id="studyBot">
-        <h2>Study Bot</h2>
-        <input type="text" id="query" placeholder="Ask the study bot...">
-        <button id="askBot">Ask</button>
-        <div id="botResponse"></div>
-    </section>
+  <section id="flashcards">
+    <h2>Flashcards</h2>
+    <div>
+        <input type="text" id="questionInput" placeholder="Enter question">
+        <input type="text" id="answerInput" placeholder="Enter answer">
+        <button id="addFlashcard">Add Flashcard</button>
+    </div>
+    <div id="flashcardDisplay">
+        <!-- Flashcards will be displayed here -->
+    </div>
+    <button id="nextFlashcard">Next Flashcard</button>
+</section>
 
-    <script src="script.js"></script>
-</body>
-</html>
