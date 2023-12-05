@@ -68,11 +68,34 @@ saveNoteBtn.addEventListener('click', function() {
 // load saved note
 noteArea.value = localStorage.getItem('note') || '';
 
-// 
-const queryInput = document.getElementById('query');
-const askBotBtn = document.getElementById('askBot');
-const botResponse = document.getElementById('botResponse');
+let flashcards = [];
+const questionInput = document.getElementById('questionInput');
+const answerInput = document.getElementById('answerInput');
+const addFlashcardBtn = document.getElementById('addFlashcard');
+const flashcardDisplay = document.getElementById('flashcardDisplay');
+const nextFlashcardBtn = document.getElementById('nextFlashcard');
+let currentFlashcardIndex = 0;
 
-askBotBtn.addEventListener('click', function() {
-    botResponse.textContent = `You asked: ${queryInput.value}`;
+addFlashcardBtn.addEventListener('click', function() {
+    addFlashcard(questionInput.value, answerInput.value);
+    questionInput.value = '';
+    answerInput.value = '';
 });
+
+nextFlashcardBtn.addEventListener('click', function() {
+    showNextFlashcard();
+});
+
+function addFlashcard(question, answer) {
+    flashcards.push({ question, answer });
+}
+
+function showNextFlashcard() {
+    if (flashcards.length > 0) {
+        if (currentFlashcardIndex >= flashcards.length) {
+            currentFlashcardIndex = 0;
+        }
+        flashcardDisplay.textContent = flashcards[currentFlashcardIndex].question;
+        currentFlashcardIndex++;
+    }
+}
